@@ -457,7 +457,6 @@ int main ( int argc, char** argv )   // Create Main Function For Bringing It All
     glutInitDisplayMode ( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ACCUM | GLUT_STENCIL ); // Display Mode
     glutInitWindowSize  ( 800, 600 ); // If glutFullScreen wasn't called this is the window size
     glutCreateWindow    ( "WindowMode" ); // Window Title (argv[0] for current directory as title)
-    glutFullScreen      ( );          // Put Into Full Screen
     InitGL ();
     glutDisplayFunc     ( display );  // Matching Earlier Functions To Their Counterparts
     glutReshapeFunc     ( reshape );
