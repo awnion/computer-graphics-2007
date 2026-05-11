@@ -1,18 +1,36 @@
-# Keep only the portable source tree, build file, and documentation visible to Git.
-*
+# macOS filesystem metadata
+.DS_Store
+**/.DS_Store
 
-!.gitignore
-!README.md
-!Makefile
+# Build output
+build/
+bin/
+*.o
+*.d
 
-!src/
-src/*
+# Windows/MSVC binaries and generated files
+*.exe
+*.ilk
+*.pdb
+*.manifest
+*.res
+*.CodeAnalysisLog.xml
+*.lastcodeanalysissucceeded
+mt.dep
 
-!src/appMG/
-src/appMG/*
-
-!src/appMG/*.cpp
-!src/appMG/*.h
-
-# Legacy Visual Studio resource header; not used by the Makefile build.
-src/appMG/resource.h
+# Legacy Visual Studio project files
+src/_all/
+src/_includes/
+src/appMG/Debug/
+src/appMG/Release/
+src/appMG/appMG.aps
+src/appMG/appMG.rc
+src/appMG/appMG.vcproj.FINTER.admin.user
+*.sln
+*.suo
+*.vcproj
+*.vcxproj
+*.vcxproj.*
+*.user
+*.resharper
+*.resharper.user
