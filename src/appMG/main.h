@@ -28,8 +28,8 @@ DWORD lastFpsTime;
 int frameCount;
 #pragma endregion
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+const int WINDOW_WIDTH = 1600;
+const int WINDOW_HEIGHT = 1200;
 const int TARGET_FPS = 120;
 const int FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
 const char WINDOW_TITLE[] = "MG OpenGL 2007";
@@ -38,7 +38,7 @@ const char WINDOW_TITLE[] = "MG OpenGL 2007";
 float scale = 0.03f;
 
 #pragma region Camera
-float   camera[9] = {   0, 0, -50, 
+float   camera[9] = {   10, 15, -15,
                         0, 0, 0, 
                         0, 1, 0};
 Point3f p3camera;
@@ -66,7 +66,7 @@ bool lighting = true;
 bool antiali = true;
 bool fog     = true;
 bool normals = false;
-bool bland   = true;
+bool bland   = false;
 #pragma endregion
 
 const int TEXDIM = 256;

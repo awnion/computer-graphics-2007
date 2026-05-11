@@ -369,20 +369,101 @@ void reshape ( int width , int height )   // Create The Reshape Function (the vi
     glViewport(0,0,width,height);						// Reset The Current Viewport
 
     glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
+    glLoadIdentity();
     // Calculate The Aspect Ratio Of The Window
     gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,700.0f);
     glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
+    glLoadIdentity();
+    glutPostRedisplay();
 
+}
+
+void ResetCamera()
+{
+    camera[0] = 10;
+    camera[1] = 15;
+    camera[2] = -15;
+    camera[3] = 0;
+    camera[4] = 0;
+    camera[5] = 0;
+    camera[6] = 0;
+    camera[7] = 1;
+    camera[8] = 0;
+}
+
+unsigned char MapRussianKeyboardKey(unsigned int codepoint)
+{
+    switch (codepoint)
+    {
+        case 0x0424:
+        case 0x0444:
+            return 'a'; // Ф on the physical A key
+        case 0x0418:
+        case 0x0438:
+            return 'b'; // И on the physical B key
+        case 0x0410:
+        case 0x0430:
+            return 'f'; // А on the physical F key
+        case 0x0414:
+        case 0x0434:
+            return 'l'; // Д on the physical L key
+        case 0x0422:
+        case 0x0442:
+            return 'n'; // Т on the physical N key
+        case 0x0426:
+        case 0x0446:
+            return 'w'; // Ц on the physical W key
+        case 0x042B:
+        case 0x044B:
+            return 's'; // Ы on the physical S key
+        case 0x0421:
+        case 0x0441:
+            return 'c'; // С on the physical C key
+        default:
+            return 0;
+    }
+}
+
+unsigned char NormalizeKeyboardKey(unsigned char key)
+{
+    static unsigned char utf8Lead = 0;
+
+    if (utf8Lead)
+    {
+        unsigned char lead = utf8Lead;
+        utf8Lead = 0;
+
+        if ((key & 0xC0) == 0x80)
+        {
+            unsigned int codepoint = ((lead & 0x1F) << 6) | (key & 0x3F);
+            return MapRussianKeyboardKey(codepoint);
+        }
+    }
+
+    if (key == 0xD0 || key == 0xD1)
+    {
+        utf8Lead = key;
+        return 0;
+    }
+
+    if (key >= 'A' && key <= 'Z')
+    {
+        return key - 'A' + 'a';
+    }
+
+    return key;
 }
 
 void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 {
     (void)x;
     (void)y;
+    key = NormalizeKeyboardKey(key);
+    if (key == 0) return;
+
     int i = key-'1';
     switch ( key ) {
         case 'b':
-        case 'B':
             bland =! bland;
             break;
         case '1':
@@ -395,10 +476,8 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
             }
             break;
         case 'n':
-        case 'N':
             normals = !normals;
             break;
-        case 'F':
         case 'f':
             fog = !fog;
             if (fog)
@@ -410,11 +489,9 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
                 glDisable(GL_FOG);
             }
             break;
-        case 'A':
         case 'a':
             antiali = !antiali;
             break;
-        case 'L':
         case 'l':
             if(lighting){
                 glDisable(GL_LIGHTING);
@@ -424,14 +501,15 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
             }
             lighting = !lighting;
             break;
-        /*case 'w':
-        case 'W':
+        case 'w':
             camera[2] += 5;
             break;
         case 's':
-        case 'S':
             camera[2] -= 5;
-            break;*/
+            break;
+        case 'c':
+            ResetCamera();
+            break;
         case 27:            // When Escape Is Pressed...
             exit ( 0 );     // Exit The Program
             break;          // Ready For Next Case

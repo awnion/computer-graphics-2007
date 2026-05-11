@@ -32,17 +32,21 @@ bin/appMG
 make run
 ```
 
-The application opens an 800x600 GLUT window. Press `Esc` to exit.
+The application opens a 1600x1200 GLUT window. Press `Esc` to exit.
 
 ## Controls
 
 - Arrow keys: move the camera on the X/Y axes.
+- `W` / `S`: move the camera on the Z axis.
+- `C`: reset the camera to its initial position.
 - `A`: toggle antialiasing through the accumulation buffer.
 - `B`: toggle object transparency.
 - `F`: toggle fog.
 - `L`: toggle lighting.
 - `N`: show/hide normals.
 - `1`-`4`: toggle light sources, if they have been created in the current frame.
+
+Letter shortcuts also work when the Russian ЙЦУКЕН keyboard layout is active.
 
 ## Clean
 
