@@ -64,3 +64,34 @@ make clean
 - Texture generation now uses `std::vector` instead of manual `malloc`/`free`.
 - Rendering is driven by a GLUT timer instead of a busy idle callback, which avoids pegging the CPU while the scene is open.
 - FPS is shown in the window title once per second instead of printing one line per frame to the terminal.
+
+## Project Architecture
+
+```mermaid
+flowchart TD
+    Makefile["Makefile"] --> Binary["bin/appMG"]
+    Sources["src/appMG/*.cpp, *.h"] --> Makefile
+
+    Main["main.cpp<br/>GLUT setup and render loop"] --> GLCompat["GLCompat.h<br/>platform OpenGL/GLUT includes"]
+    Main --> Scene["Scene rendering<br/>floor, wall, mirror, lights"]
+    Main --> Torid["Torid<br/>procedural tube mesh"]
+    Main --> Geometry["Geometry<br/>vectors, normals, rotation, reflection matrix"]
+
+    Torid --> ComplexObject["ComplexObject<br/>quad storage and camera-distance sorting"]
+    Torid --> Geometry
+    ComplexObject --> Geometry
+
+    Main --> Callbacks["GLUT callbacks"]
+    Callbacks --> Display["display()"]
+    Callbacks --> Reshape["reshape()"]
+    Callbacks --> Keyboard["keyboard() / arrow_keys()"]
+    Callbacks --> Timer["timer()"]
+
+    Display --> Render["Render()"]
+    Render --> Scene
+    Render --> Mirror["Stencil mirror pass"]
+    Render --> Geometry
+
+    Keyboard --> State["Global render state<br/>camera, fog, lighting, blending, normals"]
+    Timer --> Display
+```
