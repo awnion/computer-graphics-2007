@@ -481,6 +481,7 @@ int main ( int argc, char** argv )   // Create Main Function For Bringing It All
     glutInitDisplayMode ( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ACCUM | GLUT_STENCIL ); // Display Mode
     glutInitWindowSize  ( WINDOW_WIDTH, WINDOW_HEIGHT );
     glutCreateWindow    ( WINDOW_TITLE );
+    SetVSync(0);
     InitGL ();
     glutDisplayFunc     ( display );  // Matching Earlier Functions To Their Counterparts
     glutReshapeFunc     ( reshape );

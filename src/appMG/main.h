@@ -30,7 +30,8 @@ int frameCount;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
-const int FRAME_INTERVAL_MS = 16;
+const int TARGET_FPS = 120;
+const int FRAME_INTERVAL_MS = 1000 / TARGET_FPS;
 const char WINDOW_TITLE[] = "MG OpenGL 2007";
 
 // For AntiAli
