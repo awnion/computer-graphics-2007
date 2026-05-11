@@ -41,19 +41,19 @@ public:
         return x+y+z;
     }
 
-    // Векторное A-B
+    // Р’РµРєС‚РѕСЂРЅРѕРµ A-B
     static Point3f Difference(Point3f A, Point3f B)
     {
         return GetVector(A.x-B.x, A.y-B.y, A.z-B.z);
     }
 
-    // Векторное A+B
+    // Р’РµРєС‚РѕСЂРЅРѕРµ A+B
     static Point3f Summ(Point3f A, Point3f B)
     {
         return GetVector(A.x+B.x, A.y+B.y, A.z+B.z);
     }
 
-    // Получаем вектор по тройке(x,y,z)
+    // РџРѕР»СѓС‡Р°РµРј РІРµРєС‚РѕСЂ РїРѕ С‚СЂРѕР№РєРµ(x,y,z)
     static Point3f GetVector(float x, float y, float z)
     {
         Point3f r;
@@ -63,7 +63,7 @@ public:
         return r;
     }
 
-    // Нормализация вектора
+    // РќРѕСЂРјР°Р»РёР·Р°С†РёСЏ РІРµРєС‚РѕСЂР°
     static Point3f Normalize(Point3f V)
     {
         float r = Distance(GetVector(0,0,0), V);
@@ -71,7 +71,7 @@ public:
     }
 
 
-    // Векторное произведение
+    // Р’РµРєС‚РѕСЂРЅРѕРµ РїСЂРѕРёР·РІРµРґРµРЅРёРµ
     //  | i    j    k   |
     //  | a.x  a.y  a.z | 
     //  | b.x. b.y  b.z |
@@ -80,7 +80,7 @@ public:
         return GetVector(A.y*B.z-A.z*B.y, A.z*B.x-A.x*B.z, A.x*B.y-A.y*B.x);
     }
 
-    // Вращение вектора вопкуг номали(по часовой стрелке)
+    // Р’СЂР°С‰РµРЅРёРµ РІРµРєС‚РѕСЂР° РІРѕРїРєСѓРі РЅРѕРјР°Р»Рё(РїРѕ С‡Р°СЃРѕРІРѕР№ СЃС‚СЂРµР»РєРµ)
     static Point3f Rotate(Point3f V, Point3f N, float angle)
     {
         float sinA = sin(angle);
@@ -92,14 +92,14 @@ public:
             { (1-cosA)*N.x*N.z-sinA*N.y, (1-cosA)*N.y*N.z+sinA*N.x, cosA + (1-cosA)*N.z*N.z }
         };
 
-        return GetVector( // M*V = V повернутый
+        return GetVector( // M*V = V РїРѕРІРµСЂРЅСѓС‚С‹Р№
             M[0][0]*V.x+M[0][1]*V.y+M[0][2]*V.z,
             M[1][0]*V.x+M[1][1]*V.y+M[1][2]*V.z,
             M[2][0]*V.x+M[2][1]*V.y+M[2][2]*V.z
             );
     }
 
-    // Умнодение вектора на константу
+    // РЈРјРЅРѕРґРµРЅРёРµ РІРµРєС‚РѕСЂР° РЅР° РєРѕРЅСЃС‚Р°РЅС‚Сѓ
     static Point3f Mult(Point3f V, float lambda)
     {
         return GetVector(V.x*lambda, V.y*lambda, V.z*lambda);

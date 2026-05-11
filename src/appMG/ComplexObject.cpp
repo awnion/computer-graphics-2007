@@ -10,7 +10,7 @@ ComplexObject::~ComplexObject(void)
 {
 }
 
-// Создает обьект
+// РЎРѕР·РґР°РµС‚ РѕР±СЊРµРєС‚
 void ComplexObject::Generate(void)
 {
 }

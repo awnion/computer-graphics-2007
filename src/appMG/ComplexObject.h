@@ -7,19 +7,19 @@ class ComplexObject
 public:
     ComplexObject(void);
     virtual ~ComplexObject(void);
-    // Квардатеги =)
+    // РљРІР°СЂРґР°С‚РµРіРё =)
     Quad * Quads;
     int QuadsCount;
-    // Вершины
+    // Р’РµСЂС€РёРЅС‹
     Point3f * Points;
     Point3f * Normals;
     int PointsCount;
 
     Point3f Camera;
-    // Создает обьект
+    // РЎРѕР·РґР°РµС‚ РѕР±СЊРµРєС‚
     virtual void Generate(void);
 
-    // Сортировка
+    // РЎРѕСЂС‚РёСЂРѕРІРєР°
     void Sort(float x, float y, float z)
     {
         Camera = Geometry::GetVector(x,y,z);

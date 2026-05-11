@@ -24,21 +24,21 @@ Torid::~Torid(void)
 void Torid::Generate(void)
 {
     PointsCount = 0;
-    #pragma region Задаем точки, нормали и квадры 
-    //Обход по первому параметру
+    #pragma region Р—Р°РґР°РµРј С‚РѕС‡РєРё, РЅРѕСЂРјР°Р»Рё Рё РєРІР°РґСЂС‹ 
+    //РћР±С…РѕРґ РїРѕ РїРµСЂРІРѕРјСѓ РїР°СЂР°РјРµС‚СЂСѓ
     for (int U = 0; U < DetaleU ; U ++ )
     {
-        // Вектор промежуточного центра
+        // Р’РµРєС‚РѕСЂ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅРѕРіРѕ С†РµРЅС‚СЂР°
         Point3f c = GetC( U );
 
-        // Вектор поворота
+        // Р’РµРєС‚РѕСЂ РїРѕРІРѕСЂРѕС‚Р°
         Point3f n = Geometry::Normalize(Geometry::Difference(
             GetC( U+1 ), 
             GetC( U-1 )));
 
         for (int V = 0; V < DetaleV; V++ )
         {
-            #pragma region Расширение до трубы
+            #pragma region Р Р°СЃС€РёСЂРµРЅРёРµ РґРѕ С‚СЂСѓР±С‹
 
             Point3f v;
 
@@ -48,7 +48,7 @@ void Torid::Generate(void)
             v = Geometry::Normalize(v);
             v = Geometry::Rotate(v, n, ang);
 
-            // В v лежит нормаль, причем нормализованная
+            // Р’ v Р»РµР¶РёС‚ РЅРѕСЂРјР°Р»СЊ, РїСЂРёС‡РµРј РЅРѕСЂРјР°Р»РёР·РѕРІР°РЅРЅР°СЏ
             Normals[PointsCount] = Geometry::Normalize(v);
 
             v = Geometry::Summ(Geometry::Mult(v, R), c);
@@ -56,33 +56,33 @@ void Torid::Generate(void)
             Points[PointsCount] = v;
             #pragma endregion
 
-            #pragma region Зполняем квадры, чоответствующие данной точке
+            #pragma region Р—РїРѕР»РЅСЏРµРј РєРІР°РґСЂС‹, С‡РѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ РґР°РЅРЅРѕР№ С‚РѕС‡РєРµ
             //    ^------|------^
-            //    | Наш  |Придыд|
+            //    | РќР°С€  |РџСЂРёРґС‹Рґ|
             //    |------O------|
-            //    | предыд-линия|
+            //    | РїСЂРµРґС‹Рґ-Р»РёРЅРёСЏ|
             //    ^------|------^
 
             int tmpCount = PointsCount;
             
-            // Наш квадрат
+            // РќР°С€ РєРІР°РґСЂР°С‚
             Quads[tmpCount].p[0] = Points[PointsCount];
             Quads[tmpCount].n[0] = Normals[PointsCount];
 
-            // Предыдущий квадрат
+            // РџСЂРµРґС‹РґСѓС‰РёР№ РєРІР°РґСЂР°С‚
             tmpCount = PointsCount - 1;
             if ( V == 0 ) tmpCount += DetaleV;
 
             Quads[tmpCount].p[1] = Points[PointsCount];
             Quads[tmpCount].n[1] = Normals[PointsCount];
 
-            // Предыдущая линия, предыд квадр
+            // РџСЂРµРґС‹РґСѓС‰Р°СЏ Р»РёРЅРёСЏ, РїСЂРµРґС‹Рґ РєРІР°РґСЂ
             tmpCount -= DetaleV;
             if ( U == 0 ) tmpCount = (tmpCount+DetaleV)%DetaleV + DetaleV*(DetaleU-1);
             Quads[tmpCount].p[2] = Points[PointsCount];
             Quads[tmpCount].n[2] = Normals[PointsCount];
 
-            // Предыдущая линия, смежный с нашим квадр
+            // РџСЂРµРґС‹РґСѓС‰Р°СЏ Р»РёРЅРёСЏ, СЃРјРµР¶РЅС‹Р№ СЃ РЅР°С€РёРј РєРІР°РґСЂ
             tmpCount += 1;
             if ( V == 0 ) tmpCount -= DetaleV;
             Quads[tmpCount].p[3] = Points[PointsCount];

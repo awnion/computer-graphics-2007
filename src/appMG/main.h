@@ -18,7 +18,7 @@
 
 float length = 20;
 
-#pragma region Углы и время
+#pragma region РЈРіР»С‹ Рё РІСЂРµРјСЏ
 float angle = 0;
 
 DWORD startTime;
@@ -50,10 +50,10 @@ GLfloat LightPosition2[]=	    { -10.0f, 10.0f, 0.0f, 1.0f };
 #pragma endregion
 
 #pragma region Fog
-GLfloat fogColor[4] = {0.5f, 0.5f, 0.5f, 1.0f}; // Цвет тумана
+GLfloat fogColor[4] = {0.5f, 0.5f, 0.5f, 1.0f}; // Р¦РІРµС‚ С‚СѓРјР°РЅР°
 #pragma endregion
 
-#pragma region Опции
+#pragma region РћРїС†РёРё
 bool lighting = true;
 bool antiali = true;
 bool fog     = true;
