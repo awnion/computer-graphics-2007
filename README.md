@@ -2,6 +2,12 @@
 
 An old computer graphics coursework project built with OpenGL/GLUT. The source code is kept as close to the original as practical; the changes are limited to macOS compatibility and building with `make`.
 
+<p>
+  <a href="https://chatgpt.com/?q=Explore%20this%20C%2B%2B17%20OpenGL%2FGLUT%20coursework%20repo%3A%20https%3A%2F%2Fgithub.com%2Fawnion%2Fcomputer-graphics-2007.%20Build%20with%20make%2C%20run%20with%20make%20run.%20Focus%20on%20README.md%20and%20src%2FappMG."><img alt="Open in ChatGPT" src="https://img.shields.io/badge/Open%20in-ChatGPT-10A37F?style=for-the-badge&logo=openai&logoColor=white"></a>
+  <a href="https://chatgpt.com/codex?prompt=Explore%20this%20C%2B%2B17%20OpenGL%2FGLUT%20coursework%20repo%3A%20https%3A%2F%2Fgithub.com%2Fawnion%2Fcomputer-graphics-2007.%20Build%20with%20make%2C%20run%20with%20make%20run.%20Focus%20on%20README.md%20and%20src%2FappMG."><img alt="Open in Codex" src="https://img.shields.io/badge/Open%20in-Codex-111111?style=for-the-badge&logo=openai&logoColor=white"></a>
+  <a href="https://claude.ai/new?q=Explore%20this%20C%2B%2B17%20OpenGL%2FGLUT%20coursework%20repo%3A%20https%3A%2F%2Fgithub.com%2Fawnion%2Fcomputer-graphics-2007.%20Build%20with%20make%2C%20run%20with%20make%20run.%20Focus%20on%20README.md%20and%20src%2FappMG."><img alt="Open in Claude" src="https://img.shields.io/badge/Open%20in-Claude-D97757?style=for-the-badge&logo=anthropic&logoColor=white"></a>
+</p>
+
 ## macOS Requirements
 
 - macOS with Xcode Command Line Tools installed.
