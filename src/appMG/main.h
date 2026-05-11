@@ -1,18 +1,19 @@
 #pragma once
 
 #pragma region Includes
-#include <windows.h>
 #include <stdlib.h>
-#include <gl\glut.h>
+#include "GLCompat.h"
 #include <stdio.h>
 #include <math.h>
 #include "Torid.h"
 #include "Geometry.h"
 #include "ComplexObject.h"
 
+#ifdef _MSC_VER
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 #pragma comment(lib, "glut32.lib")
+#endif
 #pragma endregion 
 
 float length = 20;

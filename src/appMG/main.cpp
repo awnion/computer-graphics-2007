@@ -450,7 +450,7 @@ void arrow_keys ( int a_keys, int x, int y )  // Create Special Function (requir
 
 
 
-void main ( int argc, char** argv )   // Create Main Function For Bringing It All Together
+int main ( int argc, char** argv )   // Create Main Function For Bringing It All Together
 {
     T.Generate();
     glutInit            ( &argc, argv ); // Erm Just Write It =)
@@ -465,4 +465,5 @@ void main ( int argc, char** argv )   // Create Main Function For Bringing It Al
     glutSpecialFunc     ( arrow_keys );
     glutIdleFunc		( display );
     glutMainLoop        ( );          // Initialize The Main Loop
+    return 0;
 }

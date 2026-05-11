@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gl/glut.h>
+#include "GLCompat.h"
 #include <math.h>
 
 typedef struct tagPoint3f  

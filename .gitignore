@@ -1,0 +1,18 @@
+# Keep only the portable source tree, build file, and documentation visible to Git.
+*
+
+!.gitignore
+!README.md
+!Makefile
+
+!src/
+src/*
+
+!src/appMG/
+src/appMG/*
+
+!src/appMG/*.cpp
+!src/appMG/*.h
+
+# Legacy Visual Studio resource header; not used by the Makefile build.
+src/appMG/resource.h
