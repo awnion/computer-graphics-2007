@@ -1,14 +1,14 @@
 #include "main.h"
+#include <vector>
 
 Torid T(100, 32, 5, 1);
 
 // Генерим по адской формуле текстурку
-GLfloat * make_texture(int maxs, int maxt)
+std::vector<GLfloat> make_texture(int maxs, int maxt)
 {
     int s, t;
-    static GLfloat *texture;
+    std::vector<GLfloat> texture(maxs * maxt);
 
-    texture = (GLfloat *) malloc(maxs * maxt * sizeof(GLfloat));
     for (t = 0; t < maxt; t++) {
         for (s = 0; s < maxs; s++) {
             texture[s + maxs * t] = ((s/(t+1) >> 4) & 0x1) ^ ((t*(s+1) >> 4) & 0x1);
@@ -232,9 +232,8 @@ void InitGL ( GLvoid )     // Create Some Everyday Functions
     glCullFace(GL_BACK);
     // Делаем текстуру
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    GLfloat * tex = make_texture(TEXDIM, TEXDIM);
-    glTexImage2D(GL_TEXTURE_2D, 0, 1, TEXDIM, TEXDIM, 0, GL_RED, GL_FLOAT, tex);
-    free(tex);
+    std::vector<GLfloat> tex = make_texture(TEXDIM, TEXDIM);
+    glTexImage2D(GL_TEXTURE_2D, 0, 1, TEXDIM, TEXDIM, 0, GL_RED, GL_FLOAT, tex.data());
 
 
     glMaterialf( GL_FRONT_AND_BACK, GL_DIFFUSE, 1.0f );
@@ -242,6 +241,9 @@ void InitGL ( GLvoid )     // Create Some Everyday Functions
     glEnable(GL_LIGHTING);
 
     startTime = GetTickCount();
+    lastFpsTime = startTime;
+    FPS = 0;
+    frameCount = 0;
 
     glEnable(GL_FOG);                       // Включает туман (GL_FOG)
     glFogi(GL_FOG_MODE, GL_LINEAR);         // Выбираем тип тумана
@@ -312,10 +314,19 @@ void display ( void )   // Create The Display Function
 {
     // следим за веременем
     currTime = GetTickCount();
-    FPS = 1000 / (currTime - startTime +1);
-    printf("%d\n", FPS);
     angle += (float)(currTime - startTime) / 1000;
     startTime = currTime;
+    frameCount++;
+
+    if (currTime - lastFpsTime >= 1000)
+    {
+        FPS = frameCount * 1000 / (currTime - lastFpsTime);
+        char title[64];
+        snprintf(title, sizeof(title), "%s - %d FPS", WINDOW_TITLE, FPS);
+        glutSetWindowTitle(title);
+        frameCount = 0;
+        lastFpsTime = currTime;
+    }
 
     if(antiali)
     {
@@ -366,6 +377,8 @@ void reshape ( int width , int height )   // Create The Reshape Function (the vi
 
 void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 {
+    (void)x;
+    (void)y;
     int i = key-'1';
     switch ( key ) {
         case 'b':
@@ -425,10 +438,13 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
         default:            // Now Wrap It Up
             break;
     }
+    glutPostRedisplay();
 }
 
 void arrow_keys ( int a_keys, int x, int y )  // Create Special Function (required for arrow keys)
 {
+    (void)x;
+    (void)y;
     switch ( a_keys ) {
     case GLUT_KEY_UP:                   // When Up Arrow Is Pressed...
         camera[1] += 5;
@@ -446,6 +462,14 @@ void arrow_keys ( int a_keys, int x, int y )  // Create Special Function (requir
     default:
         break;
     }
+    glutPostRedisplay();
+}
+
+void timer ( int value )
+{
+    (void)value;
+    glutPostRedisplay();
+    glutTimerFunc(FRAME_INTERVAL_MS, timer, 0);
 }
 
 
@@ -455,14 +479,14 @@ int main ( int argc, char** argv )   // Create Main Function For Bringing It All
     T.Generate();
     glutInit            ( &argc, argv ); // Erm Just Write It =)
     glutInitDisplayMode ( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ACCUM | GLUT_STENCIL ); // Display Mode
-    glutInitWindowSize  ( 800, 600 ); // If glutFullScreen wasn't called this is the window size
-    glutCreateWindow    ( "WindowMode" ); // Window Title (argv[0] for current directory as title)
+    glutInitWindowSize  ( WINDOW_WIDTH, WINDOW_HEIGHT );
+    glutCreateWindow    ( WINDOW_TITLE );
     InitGL ();
     glutDisplayFunc     ( display );  // Matching Earlier Functions To Their Counterparts
     glutReshapeFunc     ( reshape );
     glutKeyboardFunc    ( keyboard );
     glutSpecialFunc     ( arrow_keys );
-    glutIdleFunc		( display );
+    glutTimerFunc       ( FRAME_INTERVAL_MS, timer, 0 );
     glutMainLoop        ( );          // Initialize The Main Loop
     return 0;
 }

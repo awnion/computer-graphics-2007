@@ -1,5 +1,5 @@
 CXX := clang++
-CXXFLAGS ?= -std=c++98 -Wall -Wextra -Wno-unknown-pragmas -Wno-deprecated-declarations
+CXXFLAGS ?= -std=c++17 -Wall -Wextra -Wno-unknown-pragmas -Wno-deprecated-declarations
 
 SRC_DIR := src/appMG
 BUILD_DIR := build

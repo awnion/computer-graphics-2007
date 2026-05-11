@@ -24,7 +24,14 @@ float angle = 0;
 DWORD startTime;
 DWORD currTime;
 int FPS;
+DWORD lastFpsTime;
+int frameCount;
 #pragma endregion
+
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
+const int FRAME_INTERVAL_MS = 16;
+const char WINDOW_TITLE[] = "MG OpenGL 2007";
 
 // For AntiAli
 float scale = 0.03f;

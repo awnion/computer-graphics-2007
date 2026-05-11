@@ -1,9 +1,12 @@
 #include "ComplexObject.h"
 
 ComplexObject::ComplexObject(void)
-: PointsCount(0)
+: Quads(0)
+, QuadsCount(0)
+, Points(0)
+, Normals(0)
+, PointsCount(0)
 {
-    QuadsCount = 0;
 }
 
 ComplexObject::~ComplexObject(void)

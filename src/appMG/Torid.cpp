@@ -17,8 +17,9 @@ Torid::Torid(int detaleU, int detaleV, float k, float r)
 
 Torid::~Torid(void)
 {
-    delete Quads;
-    delete Points;
+    delete [] Quads;
+    delete [] Points;
+    delete [] Normals;
 }
 
 void Torid::Generate(void)

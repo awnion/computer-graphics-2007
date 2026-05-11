@@ -14,8 +14,10 @@ public:
     float R;
 
     Torid(int detaleU, int detateV, float k, float r);
-    ~Torid(void);
-    void Generate(void);
+    Torid(const Torid&) = delete;
+    Torid& operator=(const Torid&) = delete;
+    ~Torid(void) override;
+    void Generate(void) override;
 private:
     Point3f GetC(int U)
     {

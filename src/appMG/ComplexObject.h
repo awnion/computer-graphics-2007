@@ -22,6 +22,7 @@ public:
     // Сортировка
     void Sort(float x, float y, float z)
     {
+        if (QuadsCount <= 1) return;
         Camera = Geometry::GetVector(x,y,z);
         QSort(0, QuadsCount - 1);
     }
